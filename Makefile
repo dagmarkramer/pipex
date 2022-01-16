@@ -1,6 +1,6 @@
 NAME := pipex
 HEADERFILES := pipex.h
-SRCFILES := pipex.c
+SRCFILES := pipex.c utils.c
 OBJFILES := $(SRCFILES:%.c=%.o)
 LIBFT := libft/libft.a
 CFLAGS ?= -Wall -Wextra -Werror
