@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/12 19:31:23 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/01/16 20:14:52 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/01/18 11:10:07 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ void	parentprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
 		exit(EXIT_FAILURE);
 	if (dup2(pipefd[1], 1) == -1)
 		exit(EXIT_FAILURE);
+	
 	ft_execute(pipex, newenv);
+	// int	status;
+	// waitpid(pipex->cpid, &status, 0);
+	// if (WIFEXITED(status))
+	// 	exit(status);
+	// exit(127);
 }
 
 void	childprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
@@ -61,7 +67,13 @@ void	childprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
 		exit(EXIT_FAILURE);
 	if (dup2(pipefd[0], 0) == -1)
 		exit(EXIT_FAILURE);
+	// int	status;
+	// waitpid(pipex->cpid, &status, 0);
+	// if (WIFEXITED(status))
+	// 	exit(status);
 	ft_execute(pipex, newenv);
+	// exit(127);
+
 }
 
 int	main(int argc, char *argv[], char **newenv)

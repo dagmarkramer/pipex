@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/14 17:44:09 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/01/16 20:20:52 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/01/18 11:19:42 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,17 @@ void	ft_execute(t_pipex *pipex, char **newenv)
 			exit(EXIT_FAILURE);
 		execve(pathjoined, pipex->args, newenv);
 	}
-	// errno = 127;
+	// int	status;
+	// waitpid(pipex->cpid, &status, 0);
+	// if (WIFEXITED(status))
+	// 	exit(status);
+	// perror ("");
+	exit (127);
+	// exit (EXIT_FAILURE);
 	// perror("");
 	// printf("\n%d\n", pipex->cpid);
 	// if (pipex->cpid == 0)
-	exit(127);
+	// exit(127);
 	// return ;
 }
 
