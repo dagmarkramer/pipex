@@ -1,1 +1,18 @@
-      18
+total 320$
+drwxr-xr-x  17 dkramer  piscine    578 Jan 22 15:52 .$
+drwxr-xr-x   8 dkramer  piscine    272 Jan 22 15:51 ..$
+drwxr-xr-x  12 dkramer  piscine    408 Jan 22 15:51 .git$
+-rw-r--r--   1 dkramer  piscine    450 Jan 22 15:51 Makefile$
+drwxr-xr-x   2 dkramer  piscine     68 Jan 22 15:51 PIPEXaminator$
+-rwxr-xr-x   1 dkramer  piscine  70456 Jan 22 15:51 a.out$
+drwxr-xr-x   3 dkramer  piscine    102 Jan 22 15:51 a.out.dSYM$
+-rw-r--r--   1 dkramer  piscine   4236 Jan 22 15:51 backup.c$
+-rw-r--r--   1 dkramer  piscine      9 Jan 22 15:51 infile$
+drwxr-xr-x  92 dkramer  piscine   3128 Jan 22 15:51 libft$
+-r--r--r--   1 dkramer  piscine      0 Jan 22 15:52 outfile$
+-rwxr-xr-x   1 dkramer  piscine  50688 Jan 22 15:51 pipex$
+-rw-r--r--   1 dkramer  piscine   2933 Jan 22 15:51 pipex.c$
+-rw-r--r--   1 dkramer  piscine   1255 Jan 22 15:51 pipex.h$
+-rw-r--r--   1 dkramer  piscine   2556 Jan 22 15:51 pipex.o$
+-rw-r--r--   1 dkramer  piscine   2614 Jan 22 15:51 utils.c$
+-rw-r--r--   1 dkramer  piscine   2068 Jan 22 15:51 utils.o$
