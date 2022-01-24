@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/14 17:44:09 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/01/18 11:19:42 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/01/24 16:06:41 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,30 @@
 #include <fcntl.h>
 #include <errno.h>
 
-void	ft_execute(t_pipex *pipex, char **newenv)
+void	ft_execute(char **path2d, char *ls, char **args, char **newenv)
 {
 	int		i;
 	char	*pathjoined;
 
 	i = -1;
 	// pipex->cmd++;
-	while (pipex->path2d[i + 1])
+	while (path2d[i + 1])
 	{
 		i++;
-		pathjoined = ft_strjoin(pipex->path2d[i], "/");
+		pathjoined = ft_strjoin(path2d[i], "/");
 		if (!pathjoined)
 			exit(EXIT_FAILURE);
-		pathjoined = ft_strjoin(pathjoined, pipex->ls);
+		pathjoined = ft_strjoin(pathjoined, ls);
 		if (!pathjoined)
 			exit(EXIT_FAILURE);
-		execve(pathjoined, pipex->args, newenv);
+		execve(pathjoined, args, newenv);
 	}
 	// int	status;
 	// waitpid(pipex->cpid, &status, 0);
 	// if (WIFEXITED(status))
 	// 	exit(status);
 	// perror ("");
-	exit (127);
+	// exit (127);
 	// exit (EXIT_FAILURE);
 	// perror("");
 	// printf("\n%d\n", pipex->cpid);
@@ -70,7 +70,7 @@ void	getpath(char **newenv, t_pipex *pipex)
 		i++;
 	}
 	free (split[0]);
-	free (split[1]);
+	// free (split[1]);
 }
 
 void	getpathoptions(char **argv, int argint, t_pipex *pipex, char **newenv)
@@ -88,6 +88,17 @@ void	getpathoptions(char **argv, int argint, t_pipex *pipex, char **newenv)
 		if (!pipex->options)
 			exit(EXIT_FAILURE);
 	}
+
+	// pipex->extraoptions = NULL;
+
+	// if (pipex->split[2])
+	// {
+	// 	// pipex->extraoptions = pipex->split[2];
+	// 		// pipex->args[2] = pipex->extraoptions;
+	// 	// free (pipex->split[2]);
+	// 	exit (2);
+	
+	// }
 	free (pipex->split[0]);
 	free (pipex->split[1]);
 	free (pipex->split);
