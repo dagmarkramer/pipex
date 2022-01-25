@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/12 19:31:23 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/01/24 16:22:29 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/01/25 14:26:59 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "libft/libft.h"
 #include "pipex.h"
 #include <fcntl.h>
+#include <sys/errno.h>
 
 void	parentprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
 {
@@ -50,6 +51,8 @@ void	parentprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
 	char	*ls1 = pipex->ls;
 	char	**args10 = pipex->args;
 	ft_execute(path2d1, ls1, args10, newenv);
+	// ft_putnbr_fd(errno, 2);
+	
 	exit (127);
 // 	if (close(pipefd[0]) == -1)
 // 		exit(EXIT_FAILURE);
@@ -134,8 +137,11 @@ void	childprocess(int *pipefd, char **argv, char **newenv, t_pipex *pipex)
 	char	*ls2 = pipex->ls;
 	char	**args20 = pipex->args;
 	ft_execute(path2d2, ls2, args20, newenv);
-	
-	// exit (127);
+	// ft_putnbr_fd(errno, 2);
+	//exit(0);
+	if (errno == 2)
+		exit (0);
+	// exit (0);
 
 	// ft_execute(path2d1, ls1, args10, newenv);
 
