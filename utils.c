@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/14 17:44:09 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/01/24 16:06:41 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/02/04 17:25:11 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,18 @@ void	ft_execute(char **path2d, char *ls, char **args, char **newenv)
 	char	*pathjoined;
 
 	i = -1;
-	// pipex->cmd++;
 	while (path2d[i + 1])
 	{
 		i++;
 		pathjoined = ft_strjoin(path2d[i], "/");
 		if (!pathjoined)
-			exit(EXIT_FAILURE);
+			error_handling("malloc");
 		pathjoined = ft_strjoin(pathjoined, ls);
 		if (!pathjoined)
-			exit(EXIT_FAILURE);
+			error_handling("malloc");
 		execve(pathjoined, args, newenv);
 	}
-	// int	status;
-	// waitpid(pipex->cpid, &status, 0);
-	// if (WIFEXITED(status))
-	// 	exit(status);
-	// perror ("");
-	// exit (127);
-	// exit (EXIT_FAILURE);
-	// perror("");
-	// printf("\n%d\n", pipex->cpid);
-	// if (pipex->cpid == 0)
-	// exit(127);
-	// return ;
+	exit (127);
 }
 
 void	getpath(char **newenv, t_pipex *pipex)
@@ -64,46 +52,34 @@ void	getpath(char **newenv, t_pipex *pipex)
 		{
 			split = ft_split(newenv[i], '=');
 			if (!split)
-				exit(EXIT_FAILURE);
+				error_handling("malloc");
 			pipex->path = split[1];
 		}
 		i++;
 	}
 	free (split[0]);
-	// free (split[1]);
 }
 
 void	getpathoptions(char **argv, int argint, t_pipex *pipex, char **newenv)
 {
 	pipex->split = ft_split(argv[argint], ' ');
 	if (!pipex->split)
-		exit(EXIT_FAILURE);
+		error_handling("malloc");
 	pipex->ls = ft_strdup(pipex->split[0]);
 	if (!pipex->ls)
-		exit(EXIT_FAILURE);
+		error_handling("malloc");
 	pipex->options = NULL;
 	if (pipex->split[1])
 	{
 		pipex->options = ft_strdup(pipex->split[1]);
 		if (!pipex->options)
-			exit(EXIT_FAILURE);
+			error_handling("malloc");
 	}
-
-	// pipex->extraoptions = NULL;
-
-	// if (pipex->split[2])
-	// {
-	// 	// pipex->extraoptions = pipex->split[2];
-	// 		// pipex->args[2] = pipex->extraoptions;
-	// 	// free (pipex->split[2]);
-	// 	exit (2);
-	
-	// }
 	free (pipex->split[0]);
 	free (pipex->split[1]);
 	free (pipex->split);
 	getpath(newenv, pipex);
 	pipex->path2d = ft_split(pipex->path, ':');
 	if (!pipex->split)
-		exit(EXIT_FAILURE);
+		error_handling("malloc");
 }
