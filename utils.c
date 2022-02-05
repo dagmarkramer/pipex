@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/14 17:44:09 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/02/04 17:25:11 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/02/05 13:46:44 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@
 #include <fcntl.h>
 #include <errno.h>
 
-void	ft_execute(char **path2d, char *ls, char **args, char **newenv)
+void	ft_execute(t_pipex *pipex, char **newenv)
 {
 	int		i;
 	char	*pathjoined;
 
 	i = -1;
-	while (path2d[i + 1])
+	while (pipex->path2d[i + 1])
 	{
 		i++;
-		pathjoined = ft_strjoin(path2d[i], "/");
+		pathjoined = ft_strjoin(pipex->path2d[i], "/");
 		if (!pathjoined)
-			error_handling("malloc");
-		pathjoined = ft_strjoin(pathjoined, ls);
+			error_handling("malloc", pipex);
+		pathjoined = ft_strjoin(pathjoined, pipex->ls);
 		if (!pathjoined)
-			error_handling("malloc");
-		execve(pathjoined, args, newenv);
+			error_handling("malloc", pipex);
+		execve(pathjoined, pipex->args, newenv);
 	}
 	exit (127);
 }
@@ -52,34 +52,37 @@ void	getpath(char **newenv, t_pipex *pipex)
 		{
 			split = ft_split(newenv[i], '=');
 			if (!split)
-				error_handling("malloc");
-			pipex->path = split[1];
+				error_handling("malloc", pipex);
+			pipex->path = ft_strdup(split[1]);
 		}
 		i++;
 	}
 	free (split[0]);
+	free (split[1]);
+	free (split);
 }
 
 void	getpathoptions(char **argv, int argint, t_pipex *pipex, char **newenv)
 {
 	pipex->split = ft_split(argv[argint], ' ');
 	if (!pipex->split)
-		error_handling("malloc");
+		error_handling("malloc", pipex);
 	pipex->ls = ft_strdup(pipex->split[0]);
 	if (!pipex->ls)
-		error_handling("malloc");
+		error_handling("malloc", pipex);
 	pipex->options = NULL;
 	if (pipex->split[1])
 	{
 		pipex->options = ft_strdup(pipex->split[1]);
 		if (!pipex->options)
-			error_handling("malloc");
+			error_handling("malloc", pipex);
 	}
 	free (pipex->split[0]);
 	free (pipex->split[1]);
 	free (pipex->split);
 	getpath(newenv, pipex);
 	pipex->path2d = ft_split(pipex->path, ':');
+	free (pipex->path);
 	if (!pipex->split)
-		error_handling("malloc");
+		error_handling("malloc", pipex);
 }

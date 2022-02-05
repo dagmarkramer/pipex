@@ -6,7 +6,7 @@
 /*   By: dkramer <dkramer@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/12 20:18:17 by dkramer       #+#    #+#                 */
-/*   Updated: 2022/02/04 17:26:38 by dkramer       ########   odam.nl         */
+/*   Updated: 2022/02/05 13:51:22 by dkramer       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ typedef struct s_pipex
 	int		fd;
 	char	*extraoptions;
 	pid_t	cpid;
+	int		malloc;
 }				t_pipex;
 
-void	ft_execute(char **path2d, char *ls, char **args, char **newenv);
+void	ft_execute(t_pipex *pipex, char **newenv);
 void	getpathoptions(char **argv, int argint, t_pipex *pipex, char **newenv);
-void	error_handling(char *error_message);
+void	error_handling(char *error_message, t_pipex *pipex);
 
 #endif
